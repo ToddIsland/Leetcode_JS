@@ -9,6 +9,7 @@ var search = function (nums, target) {
     while (lo < hi) {
         let mid = lo + Math.floor((hi - lo + 1) / 2);
         if (target < nums[mid]) {
+            // this would make lo and hi finally equal
             hi = mid - 1;
         } else {
             lo = mid;
