@@ -9,28 +9,30 @@ class Solution:
             return lists[0]
         if len(lists) == 0:
             return None
-        
+
         while len(lists) >= 2:
-            first = lists.pop()
-            second = lists.pop()
+            mergedLists = []
+            for i in range(0, len(lists), 2):
+                first = lists[i]
+                second = lists[i + 1] if i + 1 < len(lists) else None
 
-            dummy = ListNode()
-            cur = dummy
-            while first and second:
-                if first.val < second.val:
-                    cur.next = ListNode(first.val)
-                    first = first.next
+                dummy = ListNode()
+                cur = dummy
+                while first and second:
+                    if first.val < second.val:
+                        cur.next = ListNode(first.val)
+                        first = first.next
+                    else:
+                        cur.next = ListNode(second.val)
+                        second = second.next
+                    cur = cur.next
+
+                if first:
+                    cur.next = first
                 else:
-                    cur.next = ListNode(second.val)
-                    second = second.next
-                cur = cur.next
-            
-            if first:
-                cur.next = first
-            else:
-                cur.next = second
-            
-            lists.append(dummy.next)
-        
-        return lists[0]
+                    cur.next = second
 
+                mergedLists.append(dummy.next)
+            lists = mergedLists
+
+        return lists[0]
