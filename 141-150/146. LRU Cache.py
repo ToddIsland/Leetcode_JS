@@ -3,17 +3,21 @@ class LRUCache:
     def __init__(self, capacity: int):
         self.cap = capacity
         self.store = {}
-        self.stack = []
+        self.q = collections.deque()
 
     def get(self, key: int) -> int:
-        return self.store.get(key, -1)
+        ret = self.store.get(key, -1)
+        if ret != -1:
+            if len(self.q) == self.cap:
+                
+        return ret
 
     def put(self, key: int, value: int) -> None:
         if key not in self.store:
-            if len(self.stack) == self.cap:
-                temp = self.stack.pop()
+            if len(self.q) == self.cap:
+                temp = self.q.popleft()
                 self.store.pop(temp)
-            self.stack.append(key)
+            self.q.append(key)
         self.store[key] = value
 
 
