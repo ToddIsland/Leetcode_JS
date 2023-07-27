@@ -1,24 +1,36 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        length, width = len(board[0]), len(board)
+        ROWS, COLS = len(board), len(board[0])
 
-        string = ""
+        path = set()  # position (c, r)
 
-        def iter(i, j):
-            nonlocal string
-            if i == width:
-                return
-            if j == length:
-                return
-
-            string += board[i][j]
-            if string == word:
+        def iter(c, r, i):
+            if i == len(word):
                 return True
+            if (
+                c < 0
+                or r < 0
+                or c >= COLS
+                or r >= ROWS
+                or (c, r) in path
+                or board[r][c] != word[i]
+            ):
+                return False
 
-            iter(i + 1, j)
-            string = string[:-1]
-            iter(i, j + 1)
+            path.add((c, r))
+            res = (
+                iter(c - 1, r, i + 1)
+                or iter(c + 1, r, i + 1)
+                or iter(c, r - 1, i + 1)
+                or iter(c, r + 1, i + 1)
+            )
+            path.remove((c, r))
 
-        iter(0, 0)
+            return res
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                if iter(c, r, 0):
+                    return True
 
         return False
