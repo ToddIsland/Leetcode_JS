@@ -5,7 +5,7 @@ class Solution:
         half = total // 2
         # use smaller array as the based array
         # otherwise j will be out of bounds
-        # i will always be positive, but j will be negative if based array is too large
+        # i will always be non-negative, but j will be negative if based array is too large
         # so that j + 1 < 0
         if len(A) > len(B):
             A, B = B, A

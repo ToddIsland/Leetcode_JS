@@ -4,7 +4,6 @@ class Solution:
 
         # str: current string
         # left: amount of left brackets
-        # remain: amount of remain left brackets
         def iter(str, left):
             if len(str) == 2 * n:
                 if left == 0: res.append(str)
